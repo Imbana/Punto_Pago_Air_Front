@@ -5,13 +5,15 @@ import { Form, Button, InputGroup, FormControl, Container, } from 'react-bootstr
 import { MdFlightTakeoff, MdFlightLand, MdDateRange } from 'react-icons/md';
 import './flightSearch.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useStoreFlight} from  '../../store/store'
+
 
 const FlightSearch = () => {
     const [airports, setAirports] = useState([])
     const [origin, setOrigin] = useState('');
     const [destination, setDestination] = useState('');
     const [date, setDate] = useState('');
-
+    const { info_flight, start_flight } = useStoreFlight()
     const handleOriginChange = (e) => {
         const selectedOrigin = e.target.value;
         // If the selected origin is the same as current destination, reset destination
@@ -43,13 +45,14 @@ const FlightSearch = () => {
         });
 
         console.log({ origin, destination, date });
-    
+        info_flight({ origin, destination, date })
         window.open(`/flightList?${searchParams.toString()}`);
     };
 
     useEffect(() => {
         const fetchAirports = async () => {
             try {
+                start_flight()
                 const response = await axios.get('https://jsonplaceholder.typicode.com/users?_limit=5');
 
                 const data = [{"code": "sdfsd", "name": "Hola cimo est"}, {"code": "sdfsd43", "name": "Hola cimo est434"}]
@@ -61,7 +64,7 @@ const FlightSearch = () => {
             }
         };
         fetchAirports();
-    }, []);
+    }, [start_flight]);
 
 
 
@@ -120,10 +123,9 @@ const FlightSearch = () => {
                                     <Form.Select aria-label="Default select example"
                                             placeholder="Destino"
                                             value={destination}
-                                            onChange={handleDestinationChange}
-                                            
+                                            onChange={handleDestinationChange}            
                                             required
-                                            defaultValue=""
+
                                         >
                                         <option value=""  disabled>Selecciona Destino</option>
                                         {airports.map((airport) => (
