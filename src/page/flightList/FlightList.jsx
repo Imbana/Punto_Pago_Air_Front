@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { Card, Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import { MdFlight } from 'react-icons/md';
 import { useSearchParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import axios from 'axios';
-
+ 
 const dataList = {
   "direct_flights": [
     {
@@ -111,7 +112,7 @@ const dataList = {
     "days_of_week": ["Sunday"]
   }]
 };
-
+ 
 const FlightList = () => {
   const [results, setResults] = useState(dataList);
   const [showModal, setShowModal] = useState(false);
@@ -119,24 +120,28 @@ const FlightList = () => {
   const [selectedDay, setSelectedDay] = useState("Monday");
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
-
+ 
   const origin = searchParams.get('origin');
   const destination = searchParams.get('destination');
   const date = searchParams.get('date');
-
+  const navigate = useNavigate();
+ 
   const handleShowModal = (flight) => {
     setModalContent(flight);
     setShowModal(true);
   };
-
+ 
   const handleCloseModal = () => {
     setShowModal(false);
     setModalContent({});
   };
 
+  const handleSelectFlight = () => {
+    navigate('/userReservation');
+  };
   useEffect(() => {
     setLoading(true);
-
+ 
     const fetchFlightList = async () => {
       try {
         // Uncomment and update API logic here if needed
@@ -150,14 +155,14 @@ const FlightList = () => {
         setLoading(false);
       }
     };
-
+ 
     fetchFlightList();
   }, [date, destination, origin]);
-
+ 
   const filteredFlights = results.direct_flights.filter(flight =>
     flight.days_of_week.includes(selectedDay)
   );
-
+ 
   return (
     <>
       {loading && (
@@ -182,7 +187,7 @@ const FlightList = () => {
       <div className="results-container">
         <Container className="mt-5 mb-5">
           <h2 className="mb-5">Vuelos desde {origin} hacia {destination}</h2>
-
+ 
           {/* Day Selector */}
           <div className="day-selector d-flex justify-content-between mb-4">
             {["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].map((day) => (
@@ -195,7 +200,7 @@ const FlightList = () => {
               </button>
             ))}
           </div>
-
+ 
           {/* Flights */}
           <Row className="g-4">
             {filteredFlights.length > 0 ? (
@@ -243,7 +248,7 @@ const FlightList = () => {
               </div>
             )}
           </Row>
-
+ 
           {/* Modal */}
           <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
@@ -261,6 +266,9 @@ const FlightList = () => {
               )}
             </Modal.Body>
             <Modal.Footer>
+              <Button variant="primary" onClick={handleSelectFlight}>
+                Seleccionar
+              </Button>
               <Button variant="secondary" onClick={handleCloseModal}>
                 Cerrar
               </Button>
@@ -271,5 +279,6 @@ const FlightList = () => {
     </>
   );
 };
-
+ 
 export default FlightList;
+ 
