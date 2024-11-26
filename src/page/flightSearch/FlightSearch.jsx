@@ -52,7 +52,7 @@ const FlightSearch = () => {
             try {
                 const response = await axios.get('https://jsonplaceholder.typicode.com/users?_limit=5');
 
-                const data = [{"code": "sdfsd", "name": "Hola cimo est"}, {"code": "sdfsd43", "name": "Hola cimo est434"}]
+                const data = [{"code": "BOG", "name": "Bogotá"}, {"code": "MDE", "name": "Medellín"},{"code": "CTG", "name": "Cartagena"}, {"code": "CLO", "name": "Cali"}, {"code": "SMR", "name": "Santa Marta"}]
                 setAirports(data);
 
 
