@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import { MdFlight } from 'react-icons/md';
 import { useSearchParams } from "react-router";
+import { useNavigate } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import axios from 'axios';
 
@@ -19,8 +20,8 @@ const FlightList = () => {
   const origin = searchParams.get('origin');
   const destination = searchParams.get('destination');
   const date = searchParams.get('date');
-
-
+  const navigate = useNavigate();
+ 
   const handleShowModal = (flight) => {
     setModalContent(flight);
     setShowModal(true);
@@ -31,6 +32,9 @@ const FlightList = () => {
     setModalContent({});
   };
 
+  const handleSelectFlight = () => {
+    navigate('/userReservation');
+  };
   useEffect(() => {
     setLoading(true);
 
@@ -177,6 +181,9 @@ const FlightList = () => {
               )}
             </Modal.Body>
             <Modal.Footer>
+              <Button variant="primary" onClick={handleSelectFlight}>
+                Seleccionar
+              </Button>
               <Button variant="secondary" onClick={handleCloseModal}>
                 Cerrar
               </Button>
@@ -189,3 +196,4 @@ const FlightList = () => {
 };
 
 export default FlightList;
+ 

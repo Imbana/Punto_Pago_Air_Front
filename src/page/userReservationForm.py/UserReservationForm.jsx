@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import logo from '../../assets/logo.png';
 import imgFlight from '../../assets/avion.png'
- 
+import { useNavigate } from "react-router-dom";
 const UserReservationForm = () => {
+    const navigate = useNavigate();
     const [userInfo, setUserInfo] = useState({
         lastName: "",
         firstName: "",
@@ -24,10 +25,14 @@ const UserReservationForm = () => {
         alert("Reserva realizada con éxito!");
     };
 
+    const goToReservationLookup = () => {
+        navigate("/userConsultation"); // Navegar a la vista de consulta
+    };
+
     return (
 
         <>
-            <header className="header mb-4">
+            <header className="header mb-4 d-flex justify-content-between align-items-center">
                 <img
                     src={logo}
                     width="150"
@@ -35,6 +40,13 @@ const UserReservationForm = () => {
                     alt="Logo Portal de Pago Air"
                     className="logo-left"
                 />
+                <Button
+                    variant="outline-primary"
+                    onClick={goToReservationLookup}
+                    className="me-4"
+                >
+                    Consultar Reserva
+                </Button>
             </header>
 
             <Container className="mt-5">

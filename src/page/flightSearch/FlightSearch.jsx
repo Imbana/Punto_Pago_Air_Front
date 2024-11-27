@@ -76,8 +76,13 @@ const FlightSearch = () => {
                 const response = await axios.get('http://127.0.0.1:9696/api/airports/');
                 console.log(response)
 
+<<<<<<< HEAD
                 // const data = [{"code": "sdfsd", "name": "Hola cimo est"}, {"code": "sdfsd43", "name": "Hola cimo est434"}]
                 setAirports(response.data);
+=======
+                const data = [{"code": "BOG", "name": "Bogotá"}, {"code": "MDE", "name": "Medellín"},{"code": "CTG", "name": "Cartagena"}, {"code": "CLO", "name": "Cali"}, {"code": "SMR", "name": "Santa Marta"}]
+                setAirports(data);
+>>>>>>> 20c8765ff1d7f95a0ab3e19b5eabe39c76771c4d
 
 
             } catch (err) {
