@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Card, Container, Row, Col, Modal, Button } from 'react-bootstrap';
 import { MdFlight } from 'react-icons/md';
 import { useSearchParams } from "react-router";
+import {useStoreFlight} from  '../../store/store'
 import { useNavigate } from "react-router-dom";
 import logo from '../../assets/logo.png';
 import axios from 'axios';
@@ -16,7 +17,7 @@ const FlightList = () => {
   const [modalContent, setModalContent] = useState({});
   const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
-
+  const { info_flight } = useStoreFlight()
   const origin = searchParams.get('origin');
   const destination = searchParams.get('destination');
   const date = searchParams.get('date');
@@ -33,11 +34,17 @@ const FlightList = () => {
   };
 
   const handleSelectFlight = () => {
+
+    info_flight({
+      "origin": modalContent.origin?.code,
+      "destination": modalContent.origin?.code,
+      "time":modalContent.departure_time,
+      "date": date
+    })
     navigate('/userReservation');
   };
   useEffect(() => {
     setLoading(true);
-
     const fetchFlightList = async () => {
       try {
 
@@ -102,8 +109,7 @@ const FlightList = () => {
           <div className="day-selector d-flex justify-content-between mb-4">
             {weekDays.map((date) => {
               const dayName = new Intl.DateTimeFormat('es-CO', { weekday: 'long' }).format(new Date(date + 'T00:00:00-05:00'));
-              console.log(dayName)
-              console.log(date)
+
               return (
                 <button
                   key={date}
@@ -181,7 +187,7 @@ const FlightList = () => {
               )}
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="primary" onClick={handleSelectFlight}>
+              <Button variant="primary"  onClick={handleSelectFlight}>
                 Seleccionar
               </Button>
               <Button variant="secondary" onClick={handleCloseModal}>

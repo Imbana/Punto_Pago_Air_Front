@@ -32,7 +32,7 @@ const FlightSearch = () => {
     const [origin, setOrigin] = useState('');
     const [destination, setDestination] = useState('');
     const [date, setDate] = useState('');
-    const { info_flight, start_flight } = useStoreFlight()
+    const { start_flight } = useStoreFlight()
     const handleOriginChange = (e) => {
         const selectedOrigin = e.target.value;
         console.log(selectedOrigin)
@@ -64,8 +64,8 @@ const FlightSearch = () => {
             date: date
         });
 
-        console.log({ origin, destination, date });
-        info_flight({ origin, destination, date })
+
+  
         window.open(`/flightList?${searchParams.toString()}`);
     };
 
@@ -76,13 +76,8 @@ const FlightSearch = () => {
                 const response = await axios.get('http://127.0.0.1:9696/api/airports/');
                 console.log(response)
 
-<<<<<<< HEAD
                 // const data = [{"code": "sdfsd", "name": "Hola cimo est"}, {"code": "sdfsd43", "name": "Hola cimo est434"}]
                 setAirports(response.data);
-=======
-                const data = [{"code": "BOG", "name": "Bogotá"}, {"code": "MDE", "name": "Medellín"},{"code": "CTG", "name": "Cartagena"}, {"code": "CLO", "name": "Cali"}, {"code": "SMR", "name": "Santa Marta"}]
-                setAirports(data);
->>>>>>> 20c8765ff1d7f95a0ab3e19b5eabe39c76771c4d
 
 
             } catch (err) {
@@ -91,9 +86,6 @@ const FlightSearch = () => {
         };
         fetchAirports();
     }, [start_flight]);
-
-
-
 
 
 
