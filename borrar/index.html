@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Promociones de Vuelos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .promo-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 500px;
+            height: 250px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+        }
+
+        .promo-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-image {
+            width: 300px;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .destination {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .discount {
+            background-color: #3498db;
+            color: white;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            max-width: 250px;
+        }
+
+        .book-now {
+            background-color: #2ecc71;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-now:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="promo-card">
+            <img src="/api/placeholder/300/250" alt="Bogotá" class="card-image">
+            <div class="card-content">
+                <h2 class="destination">Bogotá</h2>
+                <div class="discount">5% Descuento</div>
+                <p class="description">Descubre la capital colombiana con nuestras increíbles promociones y recorridos únicos.</p>
+                <a href="#" class="book-now">Reservar Ahora</a>
+            </div>
+        </div>
+
+        <div class="promo-card">
+            <img src="/api/placeholder/300/250" alt="Cali" class="card-image">
+            <div class="card-content">
+                <h2 class="destination">Cali</h2>
+                <div class="discount">7% Descuento</div>
+                <p class="description">Sumérgete en la cultura y la energía de Cali con precios especiales para tu viaje.</p>
+                <a href="#" class="book-now">Reservar Ahora</a>
+            </div>
+        </div>
+
+        <div class="promo-card">
+            <img src="/api/placeholder/300/250" alt="Medellín" class="card-image">
+            <div class="card-content">
+                <h2 class="destination">Medellín</h2>
+                <div class="discount">10% Descuento</div>
+                <p class="description">Explora la ciudad de la eterna primavera con increíbles ofertas y paquetes especiales.</p>
+                <a href="#" class="book-now">Reservar Ahora</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

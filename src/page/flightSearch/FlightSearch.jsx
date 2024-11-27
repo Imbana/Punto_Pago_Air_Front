@@ -6,6 +6,25 @@ import { MdFlightTakeoff, MdFlightLand, MdDateRange } from 'react-icons/md';
 import './flightSearch.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useStoreFlight} from  '../../store/store'
+import CardSearch from "../../components/CardSearch" 
+import caliImg from "../../assets/cali.jpg"
+import medellinImg from "../../assets/medellin.jpg"
+
+
+
+const cards = [{
+        "city": "Cali",
+        "description": "Sumérgete en la cultura y la energía de Cali con precios especiales para tu viaje.",
+        "discount" : "7",
+        "pathImg": caliImg
+    },
+    {
+        "city": "Medellin",
+        "description": "Explora la ciudad de la eterna primavera con increíbles ofertas y paquetes especiales.",
+        "discount" : "10",
+        "pathImg": medellinImg
+    },
+]
 
 
 const FlightSearch = () => {
@@ -16,6 +35,7 @@ const FlightSearch = () => {
     const { info_flight, start_flight } = useStoreFlight()
     const handleOriginChange = (e) => {
         const selectedOrigin = e.target.value;
+        console.log(selectedOrigin)
         // If the selected origin is the same as current destination, reset destination
         if (selectedOrigin === destination) {
             setDestination('');
@@ -53,10 +73,11 @@ const FlightSearch = () => {
         const fetchAirports = async () => {
             try {
                 start_flight()
-                const response = await axios.get('https://jsonplaceholder.typicode.com/users?_limit=5');
+                const response = await axios.get('http://127.0.0.1:9696/api/airports/');
+                console.log(response)
 
-                const data = [{"code": "sdfsd", "name": "Hola cimo est"}, {"code": "sdfsd43", "name": "Hola cimo est434"}]
-                setAirports(data);
+                // const data = [{"code": "sdfsd", "name": "Hola cimo est"}, {"code": "sdfsd43", "name": "Hola cimo est434"}]
+                setAirports(response.data);
 
 
             } catch (err) {
@@ -106,7 +127,8 @@ const FlightSearch = () => {
                                         <option disabled value="" >Selecciona Origen</option>
                                         {airports.map((airport) => (
                                                 <option
-                                                    key={airport.code}>
+                                                    key={airport.code}
+                                                    value={airport.code}>
                                                     {airport.name} - {airport.code}
                                                 </option>
                                             ))}
@@ -130,7 +152,9 @@ const FlightSearch = () => {
                                         <option value=""  disabled>Selecciona Destino</option>
                                         {airports.map((airport) => (
                                                 <option
-                                                    key={airport.code}>
+                                                    key={airport.code}
+                                                    value={airport.code}
+                                                    >
                                                     {airport.name} - {airport.code}
                                                 </option>
                                             ))}
@@ -162,6 +186,14 @@ const FlightSearch = () => {
 
                     </div>
                 </Container>
+            </div>
+
+            <div className="containerCards">
+                {
+                    cards.map(item => (
+                        <CardSearch key={item.city} data={item}/>
+                    ))
+                }
             </div>
 
 
